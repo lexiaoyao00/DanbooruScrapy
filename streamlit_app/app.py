@@ -13,6 +13,8 @@ args = parser.parse_args()
 data_dir = os.path.join(os.path.dirname(os.getcwd()), "data")
 data_path = os.path.join(data_dir, args.data_file)
 
+st.info('This is a purely informational message', icon="ℹ️")
+
 # 展示数据
 st.title("图片展示应用")
 try:
@@ -22,19 +24,3 @@ try:
             st.image(img['preview_img'], caption=img.get('id', ''))
 except FileNotFoundError:
     st.error(f"文件 {args.data_file} 不存在！请先运行对应爬虫。")
-
-# import streamlit as st
-# import json
-
-
-# st.title("Scrapy 爬取的图片")
-
-# try:
-# # 读取 Scrapy 生成的 JSON 数据
-#     with open('images.json', 'r', encoding='utf-8') as f:
-#         images = json.load(f)
-#         for img in images:
-#             st.image(img['preview_img'], caption=img['id'])
-
-# except FileNotFoundError:
-#     st.error("没有找到图片数据。")

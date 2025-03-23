@@ -8,7 +8,7 @@ class DanbooruSpider(scrapy.Spider):
     allowed_domains = ["danbooru.donmai.us"]
     start_urls = ["https://danbooru.donmai.us"]
     custom_settings = {
-        "ITEM_PIPELINES": {"myproject.pipelines.DynamicJsonWriterPipeline": 300},
+        "ITEM_PIPELINES": {"myproject.pipelines.DynamicJsonWriterPipeline": 500},
     }
 
     def parse(self, response):

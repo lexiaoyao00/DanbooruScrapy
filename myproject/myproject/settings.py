@@ -59,7 +59,7 @@ RANDOMIZE_DOWNLOAD_DELAY = True
 # Enable or disable downloader middlewares
 # See https://docs.scrapy.org/en/latest/topics/downloader-middleware.html
 DOWNLOADER_MIDDLEWARES = {
-    "myproject.middlewares.CurlCffiMiddleware": 300,
+    "myproject.middlewares.CurlCffiMiddleware": 50,
 }
 
 # Enable or disable extensions

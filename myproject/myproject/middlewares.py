@@ -4,10 +4,42 @@
 # https://docs.scrapy.org/en/latest/topics/spider-middleware.html
 
 from scrapy import signals
-
+from scrapy.http import HtmlResponse
+from curl_cffi import requests
 # useful for handling different item types with a single interface
 from itemadapter import is_item, ItemAdapter
 
+class CurlCffiMiddleware:
+    def process_request(self, request, spider):
+        # 使用 curl_cffi 发送请求
+        try:
+            # 初始化 Session（可选，根据需求）
+            session = requests.Session()
+
+            # 发送请求
+            resp = session.request(
+                method=request.method,
+                url=request.url,
+                headers=dict(request.headers),
+                data=request.body,
+                cookies=dict(request.cookies),
+                # 模拟浏览器指纹（例如 Chrome 120）
+                impersonate="chrome120",
+                timeout=request.meta.get('download_timeout', 180)
+            )
+
+            # 构建 Scrapy Response 对象
+            return HtmlResponse(
+                url=resp.url,
+                status=resp.status_code,
+                headers=resp.headers,
+                body=resp.content,
+                request=request
+            )
+
+        except Exception as e:
+            spider.logger.error(f"curl_cffi request failed: {e}")
+            return None  # 继续传递其他中间件处理
 
 class MyprojectSpiderMiddleware:
     # Not all methods need to be defined. If a method is not defined,

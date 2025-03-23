@@ -6,7 +6,9 @@
 import scrapy
 
 
-class MyprojectItem(scrapy.Item):
+class DanbooruItem(scrapy.Item):
     # define the fields for your item here like:
     # name = scrapy.Field()
-    pass
+    id = scrapy.Field()
+    post_url = scrapy.Field()
+    preview_img = scrapy.Field()
